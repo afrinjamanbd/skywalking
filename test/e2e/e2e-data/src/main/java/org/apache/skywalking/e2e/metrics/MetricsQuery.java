@@ -18,10 +18,15 @@
 
 package org.apache.skywalking.e2e.metrics;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.apache.skywalking.e2e.AbstractQuery;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Data
 @Accessors(fluent = true)
@@ -120,6 +125,18 @@ public class MetricsQuery extends AbstractQuery<MetricsQuery> {
         METER_INSTANCE_PERSISTENCE_EXECUTE_COUNT 
     };
 
+    public static String[] ALL_ENVOY_LINER_METRICS = {
+        "envoy_heap_memory_used",
+        "envoy_heap_memory_max_used",
+        "envoy_memory_allocated",
+        "envoy_memory_allocated_max",
+        "envoy_memory_physical_size",
+        "envoy_memory_physical_size_max",
+        "envoy_total_connections_used",
+        "envoy_worker_threads",
+        "envoy_worker_threads_max"
+    };
+
     public static String METER_INSTANCE_PERSISTENCE_EXECUTE_PERCENTILE = "meter_oap_instance_persistence_execute_percentile";
 
     public static String[] ALL_SO11Y_LABELED_METRICS = {
@@ -136,5 +153,11 @@ public class MetricsQuery extends AbstractQuery<MetricsQuery> {
         METER_JVM_THREADS_LIVE,
         METER_PROCESS_FILES_MAX
     };
+
+    public static Map<String, List<String>> SIMPLE_ZABBIX_METERS = ImmutableMap.<String, List<String>>builder()
+            .put("meter_agent_system_cpu_util", Arrays.asList("idle"))
+            .put("meter_agent_vm_memory_size", Arrays.asList("total"))
+            .put("meter_agent_vfs_fs_size", Arrays.asList("/-total"))
+            .build();
 
 }
